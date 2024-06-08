@@ -1,0 +1,27 @@
+.test {
+    height: 200px;
+    width: 1050px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.test__row {
+    display: flex;
+    height: 200px;
+    width: 100%;
+    transition: all 0.5s ease;
+}
+
+.test__row img {
+    flex: 0 0 1050px;
+
+    /* object-fit: cover; */
+    border-radius: 10px;
+    height: 100%;
+}
+
+.btn {
+    text-align: center;
+}

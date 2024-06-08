@@ -1,0 +1,181 @@
+.footer {
+    margin: 100px 0 0 0;
+    background: #202020;
+    padding: 55px 0;
+}
+
+.footer__menu {
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer__list a {
+    font-family: roboto;
+    font-weight: 500;
+    font-size: 16px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.footer__network {
+    text-align: center;
+    margin: 50px 0 30px 0;
+}
+
+.footer__network a {
+    display: inline-block;
+    margin: 0 20px 0 0;
+}
+.footer__network a:last-child {
+    margin: 0;
+}
+
+.footer__network img {
+    width: 100%;
+    height: 40px;
+}
+
+.footer__line {
+    height: 1px;
+    width: 100%;
+    background: #6a6a6a;
+}
+
+.footer__copyright {
+    font-family: roboto;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    margin: 18px 0 0 0;
+}
+
+/* faq */
+
+.faq {
+    flex: 1 1 100%;
+    padding: 100px 0;
+}
+
+.faq__title {
+    font-family: roboto;
+    font-size: 36px;
+    font-weight: 500;
+    text-align: center;
+    color: #fff;
+    margin: 0 0 35px 0;
+}
+
+/* question */
+
+.question {
+    border-top: 1px solid #3b3b3d;
+    border-bottom: 1px solid #3b3b3d;
+    padding: 35px 0;
+}
+.question__row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.question__question {
+    font-family: roboto;
+    font-size: 30px;
+    font-weight: 500;
+    color: #fff;
+}
+
+.question__btn {
+    display: inline-block;
+    background: transparent;
+    font-family: roboto;
+    font-size: 30px;
+    font-weight: 500;
+    color: #fff;
+    transition: all 0.3s ease;
+    /* background: #3b3b3d; */
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.question__answer {
+    font-family: roboto;
+    font-size: 14px;
+    font-weight: 300;
+    color: #fff;
+    margin: 25px 0 0 0;
+}
+
+/* address */
+
+.adresses {
+    flex: 1 1 100%;
+    padding: 100px 0;
+}
+
+.adresses__title {
+    font-family: roboto;
+    font-size: 36px;
+    font-weight: 500;
+    text-align: center;
+    color: #fff;
+    margin: 0 0 35px 0;
+}
+
+.adresses__link {
+    margin: 0 0 20px 0;
+}
+.adresses__link a {
+    font-family: roboto;
+    font-size: 20px;
+    font-weight: 300;
+    color: #fff;
+}
+
+.adresses__map {
+    width: 100%;
+    height: 490px;
+}
+.adresses__map img {
+    width: 100%;
+    height: 100%;
+}
+
+/* contacts */
+.contacts {
+    flex: 1 1 100%;
+    padding: 100px 0;
+}
+
+.contacts__title {
+    font-family: roboto;
+    font-size: 36px;
+    font-weight: 500;
+    color: #fff;
+    margin: 0 0 35px 0;
+}
+
+.contacts__subtitle {
+    font-family: roboto;
+    font-size: 20px;
+    font-weight: 400;
+    color: #fff;
+}
+
+@media (max-width: 1300px) {
+}
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 767px) {
+    .adresses__map {
+        height: 300px;
+    }
+}
+@media (max-width: 500px) {
+    .adresses__map {
+        height: 200px;
+    }
+}

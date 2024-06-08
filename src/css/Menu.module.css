@@ -1,0 +1,340 @@
+.menu__title {
+    font-family: chicken;
+    font-size: 40px;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* selectSeciton */
+
+.selectSection {
+    margin: 100px 0 0 0;
+}
+
+.selectSection__title {
+    color: #fff;
+    font-size: 40px;
+    text-transform: uppercase;
+}
+
+.selectSection__underLine {
+    background: #fff;
+    width: 145px;
+    height: 1px;
+    margin: 5px 0 20px;
+}
+
+.selectSection__cards {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -5px;
+}
+
+/* card */
+
+.card {
+    flex: 0 0 24%;
+    flex-wrap: wrap;
+    border: 2px solid #6a6a6a;
+    border-radius: 10px;
+    /* height: 435px; */
+    padding: 15px 18px;
+    margin: 0 5px 5px 5px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.card:hover {
+    border: 2px solid #ff7d2e;
+}
+
+.card__img {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+}
+.card__img img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+}
+
+.card__title {
+    font-family: chicken;
+    font-size: 32px;
+    color: #fff;
+    margin: 20px 0 10px;
+}
+.card__text {
+    font-family: roboto;
+    font-weight: 400;
+    font-size: 14px;
+    color: #fff;
+    height: 60px;
+    overflow: hidden;
+}
+
+.card__line {
+    margin: 10px 0;
+    background: #6a6a6a;
+    width: 100%px;
+    height: 1px;
+}
+
+.card__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card__price {
+    font-family: chicken;
+    font-size: 16px;
+    color: #ff7d2e;
+}
+.card__cart {
+    font-family: chicken;
+    font-size: 16px;
+    color: #fff;
+    padding: 3px 10px;
+    background: #ff7d2e;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+.card__cart:hover {
+    background: #a75421;
+}
+.card__cart:active {
+    background: rgb(231, 100, 19);
+}
+
+/* pickedCard */
+
+.pickedCard {
+    position: fixed;
+    z-index: 100;
+    top: 40%;
+    left: 50%;
+    background: #232323;
+    border: 1px solid #6a6a6a;
+    border-radius: 10px;
+    padding: 25px;
+    transform: translate(-50%, -50%);
+    box-shadow: 1px 7px 25px 9px rgba(0, 0, 0, 0.4);
+    animation: toUp 0.3s ease-in-out;
+}
+
+@keyframes toUp {
+    0% {
+        top: 150%;
+    }
+    100% {
+        top: 40%;
+    }
+}
+
+.pickedCard__back {
+    z-index: 6;
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+    background: rgba(0, 0, 0, 0.3);
+    filter: blur(50px);
+    animation: toDark 0.5s ease-in-out;
+}
+
+@keyframes toDark {
+    0% {
+        background: rgba(0, 0, 0, 0);
+    }
+    100% {
+        background: rgba(0, 0, 0, 0.3);
+    }
+}
+
+.pickedCard__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pickedCard__img {
+    width: 125px;
+    height: 125px;
+    margin: 0 25px 0 0;
+    text-align: center;
+}
+.pickedCard__img img {
+    width: 100%;
+    height: 125px;
+    object-fit: contain;
+}
+
+.pickedCard__description {
+}
+
+.pickedCard__title {
+    font-family: chicken;
+    font-size: 32px;
+    color: #fff;
+}
+.pickedCard__text {
+    font-family: roboto;
+    font-weight: 400;
+    font-size: 12px;
+    color: #fff;
+    max-width: 215px;
+}
+
+.pickedCard__overLine {
+    height: 1px;
+    width: 100%;
+    background: #6a6a6a;
+    margin: 20px 0 10px;
+}
+.pickedCard__underLine {
+    height: 1px;
+    width: 100%;
+    background: #6a6a6a;
+    margin: 10px 0 20px;
+}
+
+.pickedCard__priceForWeight {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pickedCard__weight {
+    font-family: roboto;
+    font-size: 16px;
+    color: #fff;
+}
+
+.pickedCard__price {
+    font-family: chicken;
+    font-size: 16px;
+    color: #ff7d2e;
+}
+
+.pickedCard__howMany {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pickedCard__minus {
+    font-family: roboto;
+    font-size: 15px;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    background: #d9d9d9;
+    color: #232323;
+    text-align: center;
+}
+
+.pickedCard__plus {
+    font-family: roboto;
+    font-size: 15px;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    background: #ff7d2e;
+    color: #232323;
+    text-align: center;
+}
+.pickedCard__count {
+    font-family: roboto;
+    font-weight: 400;
+    font-size: 16px;
+    color: #fff;
+    margin: 0 35px;
+}
+
+.pickedCard__addToCart {
+    text-align: center;
+    margin: 35px 0 0;
+}
+
+.pickedCard__addToCart button {
+    display: inline-block;
+    font-size: 16px;
+    font-family: chicken;
+    background: #ff7d2e;
+    color: #fff;
+    border-radius: 10px;
+    padding: 4px 20px;
+}
+
+/* Adaptive */
+
+@media (max-width: 1300px) {
+}
+
+@media (max-width: 992px) {
+    .card {
+        flex: 0 0 32%;
+    }
+
+    .card__price {
+        font-size: 20px;
+    }
+    .card__cart {
+        font-size: 20px;
+        padding: 3px 10px;
+    }
+}
+
+@media (max-width: 767px) {
+    .card {
+        flex: 0 0 100%;
+    }
+
+    .card__price {
+        font-size: 22px;
+    }
+    .card__cart {
+        font-size: 22px;
+        padding: 7px 13px;
+    }
+
+    .pickedCard__addToCart button {
+        font-size: 22px;
+        padding: 7px 13px;
+    }
+
+    /* .pickedCard {
+        width: 70%;
+    } */
+    .pickedCard__row {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .pickedCard__title {
+        margin: 10px 0;
+    }
+    .pickedCard__text {
+        max-width: 315px;
+    }
+}
+
+@media (max-width: 630px) {
+    .pickedCard__img {
+        width: 105px;
+        height: 105px;
+        margin: 0 25px 0 0;
+    }
+    .pickedCard {
+        width: 60%;
+    }
+}
+@media (max-width: 430px) {
+    .pickedCard {
+        width: 90%;
+    }
+}

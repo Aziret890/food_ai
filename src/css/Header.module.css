@@ -1,0 +1,342 @@
+/* @import '../images/svg/add_shopping_cart.svg' */
+
+.header {
+    background: #232323;
+    border-bottom: 2px solid #6a6a6a;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.header__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 0;
+}
+
+/* logo */
+
+.header__logo a {
+    font-family: fatheya;
+    font-size: 32px;
+    color: #fff;
+}
+
+/* nav */
+.header__menu {
+    display: flex;
+    align-items: center;
+}
+
+.header__list {
+    margin: 0 50px 0 0;
+}
+.header__list:last-child {
+    margin: 0;
+}
+.header__list a {
+    font-size: 24px;
+    color: #fff;
+    transition: all 0.2s ease;
+}
+.header__list a:hover {
+    color: #d4d4d4;
+}
+.header__list a:active {
+    color: #ffffff;
+}
+
+.header__list_sign {
+    position: relative;
+}
+
+.header__sign_button {
+    font-size: 24px;
+    background: #007b80;
+    padding: 6px 12px;
+    border-radius: 10px;
+    color: #fff;
+    transition: all 0.2s ease;
+}
+.header__sign_button:hover {
+    background: #045e61;
+}
+.header__sign_button:active {
+    background: #09a3a8;
+}
+.header__cart_button {
+    font-size: 24px;
+    background: #ff7d2e;
+    padding: 6px 12px;
+    border-radius: 10px;
+    color: #fff;
+    transition: all 0.2s ease;
+}
+
+.header__cart_button:hover {
+    background: #a75421;
+}
+.header__cart_button:active {
+    background: rgb(231, 100, 19);
+}
+
+.header__sign_button::before {
+    display: inline-block;
+    content: "";
+    width: 23px;
+    height: 15px;
+    margin: 0 5px 0 0;
+    background: url("../images/svg/login.svg") no-repeat;
+}
+.header__cart_button::before {
+    display: inline-block;
+    content: "";
+    width: 20px;
+    height: 14px;
+    margin: 0 5px 0 0;
+    background: url("../images/svg/add_shopping_cart.svg") no-repeat;
+}
+
+/* nav show btn */
+.header__showNav {
+    width: 50px;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
+    display: none;
+}
+
+.header__navBtn {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    background: #3b3b3d;
+    width: 100%;
+    height: 2px;
+}
+.header__navBtn::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    background: #3b3b3d;
+    width: 100%;
+    height: 2px;
+    transition: all 0.4s ease;
+}
+.header__navBtn::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    background: #3b3b3d;
+    width: 100%;
+    height: 2px;
+    transition: all 0.4s ease;
+}
+
+.header__showNav.header__closeNav span {
+    height: 0;
+}
+.header__showNav.header__closeNav span::before {
+    transform: rotate(-45deg);
+    top: 0;
+}
+.header__showNav.header__closeNav span::after {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+/* register */
+
+.register {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: #232323;
+    padding: 30px;
+    border-radius: 10px;
+    z-index: 6;
+}
+
+.register label {
+    font-family: roboto;
+    font-weight: 300;
+    font-size: 16;
+    display: block;
+    color: #fff;
+}
+
+.register input {
+    font-family: roboto;
+    padding: 0 0 0 5px;
+    height: 30px;
+    width: 205px;
+    border-radius: 5px;
+    background: #3b3b3d;
+    color: #fff;
+    font-size: 14px;
+}
+.register button {
+    background: transparent;
+}
+
+/* signIn */
+
+.signIn__telephoneInp input {
+    margin: 5px 0 20px 0;
+}
+
+.signIn__passwordInp input {
+    margin: 5px 0 5px;
+}
+
+.signIn__btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0 0 0;
+}
+
+.signIn__signUp,
+.signIn__restorePassword {
+    font-family: roboto;
+    font-weight: 300;
+    font-size: 12px;
+    color: #007b80;
+    padding: 0;
+}
+
+.register .signIn__signIn {
+    font-family: roboto;
+    font-weight: 300;
+    font-size: 12px;
+    background: #007b80;
+    padding: 5px 30px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+/* signUp */
+
+.signUp__form input {
+    margin: 5px 0 20px 0;
+}
+
+.signUp__btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.register .signUp__cancel {
+    font-family: roboto;
+    font-weight: 300;
+    font-size: 12px;
+    color: #007b80;
+}
+.register .signUp__continue {
+    font-family: roboto;
+    font-weight: 300;
+    font-size: 12px;
+    background: #007b80;
+    padding: 5px 30px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+/* restore */
+
+.restore__redioRow {
+    display: flex;
+}
+
+.restore__radio input {
+    width: 15px;
+    height: 15px;
+}
+.restore__radio label {
+    display: inline-block;
+    margin: 0 20px 0 10px;
+}
+
+.restore__telephoneInp,
+.restore__emailInp {
+    margin: 20px 0;
+}
+
+.restore__telephoneInp label,
+.restore__emailInp label {
+    margin: 0 0 5px 0;
+}
+
+.restore__btns {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.restore__cancel {
+    font-family: roboto;
+    font-weight: 300;
+    font-size: 12px;
+    color: #007b80;
+}
+
+.register .restore__continue {
+    font-family: roboto;
+    font-weight: 300;
+    font-size: 12px;
+    background: #007b80;
+    padding: 5px 30px;
+    border-radius: 10px;
+    color: #fff;
+}
+
+/* adaptive */
+
+@media (max-width: 1300px) {
+}
+
+@media (max-width: 992px) {
+}
+
+@media (max-width: 767px) {
+    /* btn */
+    .header__showNav {
+        display: block;
+    }
+
+    /* nav */
+
+    .header__nav {
+        transform: translateX(100%);
+    }
+    .header__nav.header__bgNav {
+        transform: translateX(0);
+    }
+    .header__nav {
+        min-width: 100vw;
+        background: #3b3b3d;
+        left: 0;
+        top: 100%;
+        position: absolute;
+        padding: 60px 0;
+        transition: all 0.7s ease;
+    }
+    .header__menu {
+        display: block;
+        text-align: center;
+    }
+
+    .header__list {
+        margin: 0 0 40px 0;
+    }
+
+    .signIn__restorePassword {
+        display: block;
+    }
+}
