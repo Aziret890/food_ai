@@ -144,9 +144,9 @@ function Chat() {
           {
             headers: {
               Authorization:
-                "pat_t66PDpqOvs2CGvJibklCpBDWAHOiQDGnexR48yI5kX8l434x7AcwsJE6ZYUcqaSI",
+                "Bearer pat_t66PDpqOvs2CGvJibklCpBDWAHOiQDGnexR48yI5kX8l434x7AcwsJE6ZYUcqaSI",
               "Content-Type": "application/json",
-              Accept: "/",
+              Accept: "*/*", // Updated Accept header
               Host: "api.coze.com",
               Connection: "keep-alive",
             },
@@ -231,7 +231,7 @@ function Chat() {
         extra={
           <Space>
             <Button type="primary" onClick={onClose}>
-            закрыть
+              закрыть
             </Button>
           </Space>
         }
