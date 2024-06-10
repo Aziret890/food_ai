@@ -350,3 +350,6 @@
     max-width: 70%;
     background: #343333;    
 }
+.scrool__chat::-webkit-scrollbar{
+display: none;
+}

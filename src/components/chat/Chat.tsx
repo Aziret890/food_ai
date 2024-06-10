@@ -155,7 +155,7 @@ function Chat() {
         console.log("Response data:", response.data); // Added logging
         setDataMsg(response.data.messages);
       } catch (error) {
-        console.error("Error fetching data:", error); // Enhanced error logging
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -175,7 +175,7 @@ function Chat() {
     notification.info({
       message: `Азирет менеджер`,
       description: "Меня зовут Азирет, чем я могу вам помочь?",
-      duration: 5, // Duration in seconds
+      duration: 2.5,
       placement: "bottomRight",
       style: {
         position: "fixed",
@@ -195,7 +195,7 @@ function Chat() {
   const addMessage = () => {
     if (userOneMessage.trim()) {
       setUserAllMessage([...userAllMessage, userOneMessage.trim()]);
-      setUserOneMessage(""); // Clear the input field after adding the message
+      setUserOneMessage("");
     }
   };
 
@@ -206,7 +206,7 @@ function Chat() {
   const handleKeyPress = (e: any) => {
     if (e.key === "Enter") {
       addMessage();
-      setUserOneMessage(""); // Clear the input field after adding the message
+      setUserOneMessage("");
     }
   };
   console.log(userAllMessage);
@@ -230,15 +230,17 @@ function Chat() {
         style={{ background: "#232323", color: "white", fontSize: "24px" }}
         extra={
           <Space>
-            <Button onClick={onClose}>Cancel</Button>
             <Button type="primary" onClick={onClose}>
-              OK
+            закрыть
             </Button>
           </Space>
         }
       >
         <div className="flex flex-col gap-[25px]">
-          <div className="flex flex-col items-end gap-[25px]" style={{ height: "82vh" }}>
+          <div
+            className="flex flex-col items-end gap-[25px] scrool__chat"
+            style={{ height: "82vh", overflow: "scroll" }}
+          >
             {userAllMessage.map((el: string, inx: number) => (
               <div className="chat__client__message" key={inx}>
                 <h1 className="text-end">{el}</h1>
