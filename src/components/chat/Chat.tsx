@@ -1,44 +1,42 @@
 // import axios from "axios";
-// import { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 // import "../../css/Chat.css";
-// import { Button, Drawer, Flex, Space, notification } from "antd";
+// import { Button, Drawer, Space, notification } from "antd";
 // import type { DrawerProps } from "antd";
 // import svg from "../../images/svg/chat_bot.svg";
 // function Chat() {
 //   const [open, setOpen] = useState(false);
 //   const [size, setSize] = useState<DrawerProps["size"]>();
-//   const [dataMsg, setDataMsg] = useState([]);
-
-//   useEffect(() => {
+//   const [userAllMessage, setUserAllMessage] = useState<string[]>([]);
+//   const [userOneMessage, setUserOneMessage] = useState<string>("");
+//   const fetchData = async () => {
 //     try {
-//       axios
-//         .post(
-//           "https://api.coze.com/open_api/v2/chat",
-//           {
-//             conversation_id: "123",
-//             bot_id: "7372605356138758150",
-//             user: "29032201862555",
-//             query: "привет",
-//             stream: false,
+//       const response = await axios.post(
+//         "https://api.coze.com/open_api/v2/chat",
+//         {
+//           conversation_id: "123",
+//           bot_id: "7372605356138758150",
+//           user: "29032201862555",
+//           query: `${userOneMessage}`,
+//           stream: false,
+//         },
+//         {
+//           headers: {
+//             Authorization:
+//               "Bearer pat_t66PDpqOvs2CGvJibklCpBDWAHOiQDGnexR48yI5kX8l434x7AcwsJE6ZYUcqaSI",
+//             "Content-Type": "application/json",
+//             Accept: "*/*",
+//             Host: "api.coze.com",
+//             Connection: "keep-alive",
 //           },
-//           {
-//             headers: {
-//               Authorization:
-//                 "pat_t66PDpqOvs2CGvJibklCpBDWAHOiQDGnexR48yI5kX8l434x7AcwsJE6ZYUcqaSI",
-//               "Content-Type": "application/json",
-//               Accept: "/",
-//               Host: "api.coze.com",
-//               Connection: "keep-alive",
-//             },
-//           }
-//         )
-//         .then((res: any) => setDataMsg(res.data.messages))
-//         .catch((e) => console.log(e));
+//         }
+//       );
+//       console.log("Response data:", response.data);
+//       setUserAllMessage([...userAllMessage, response.data.messages[1].content]);
 //     } catch (error) {
-//       console.log("ee", error);
+//       console.error("Error fetching data:", error);
 //     }
-//   }, []);
-
+//   };
 //   const showLargeDrawer = () => {
 //     setSize("large");
 //     setOpen(true);
@@ -52,7 +50,7 @@
 //     notification.info({
 //       message: `Азирет менеджер`,
 //       description: "Меня зовут Азирет, чем я могу вам помочь?",
-//       duration: 5, // Duration in seconds
+//       duration: 2.5,
 //       placement: "bottomRight",
 //       style: {
 //         position: "fixed",
@@ -63,11 +61,32 @@
 //       onClick() {},
 //     });
 //   };
+
 //   useEffect(() => {
 //     if (!open) {
 //       showNotification();
 //     }
-//   }, []);
+//   }, [open]);
+//   const addMessage = () => {
+//     if (userOneMessage.trim()) {
+//       setUserAllMessage([...userAllMessage, userOneMessage.trim()]);
+//       setUserOneMessage("");
+//     }
+//   };
+
+//   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setUserOneMessage(e.target.value);
+//   };
+
+//   const handleKeyPress = (e: any) => {
+//     if (e.key === "Enter") {
+//       addMessage();
+//       setUserOneMessage("");
+//       fetchData();
+//     }
+//   };
+//   console.log(userAllMessage);
+
 //   return (
 //     <div className="mt-[30px]">
 //       <Space>
@@ -87,26 +106,33 @@
 //         style={{ background: "#232323", color: "white", fontSize: "24px" }}
 //         extra={
 //           <Space>
-//             <Button onClick={onClose}>Cancel</Button>
 //             <Button type="primary" onClick={onClose}>
-//               OK
+//               закрыть
 //             </Button>
 //           </Space>
 //         }
 //       >
-//         <div className="flex flex-col">
-//           <Flex style={{ height: "82vh" }}>
-//             <p>Some contents...</p>
-//             <p>Some contents...</p>
-//             <p>Some contents...</p>
-//           </Flex>
-//           {/* <Input /> */}
-//           <div className="input-container">
-//             <input type="text" id="input" />
-//             <label htmlFor="input" className="label">
-//               Enter Text
-//             </label>
-//             <div className="underline"></div>
+//         <div className="flex flex-col gap-[25px]">
+//           <div
+//             className="flex flex-col items-end gap-[25px] scrool__chat"
+//             style={{ height: "82vh", overflow: "scroll" }}
+//           >
+//             {userAllMessage.map((el: string, inx: number) => (
+//               <div className="chat__client__message" key={inx}>
+//                 <h1 className="text-end">{el}</h1>
+//               </div>
+//             ))}
+//           </div>
+//           <div className="flex items-center">
+//             <input
+//               onChange={(e) => setUserOneMessage(e.target.value)}
+//               type="text"
+//               value={userOneMessage}
+//               onKeyPress={handleKeyPress}
+//               className="input__chat"
+//               placeholder="text"
+//             />
+//             <button onClick={addMessage}>отправить</button>
 //           </div>
 //         </div>
 //       </Drawer>
@@ -117,6 +143,7 @@
 // export default Chat;
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+// import "antd/dist/antd.css";
 import "../../css/Chat.css";
 import { Button, Drawer, Space, notification } from "antd";
 import type { DrawerProps } from "antd";
@@ -125,42 +152,40 @@ import svg from "../../images/svg/chat_bot.svg";
 function Chat() {
   const [open, setOpen] = useState(false);
   const [size, setSize] = useState<DrawerProps["size"]>();
-  const [dataMsg, setDataMsg] = useState([]);
   const [userAllMessage, setUserAllMessage] = useState<string[]>([]);
   const [userOneMessage, setUserOneMessage] = useState<string>("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post(
-          "https://api.coze.com/open_api/v2/chat",
-          {
-            conversation_id: "123",
-            bot_id: "7372605356138758150",
-            user: "29032201862555",
-            query: "привет",
-            stream: false,
+  const fetchData = async (message: string) => {
+    try {
+      const response = await axios.post(
+        "https://api.coze.com/open_api/v2/chat",
+        {
+          conversation_id: "123",
+          bot_id: "7372605356138758150",
+          user: "29032201862555",
+          query: message,
+          stream: false,
+        },
+        {
+          headers: {
+            Authorization:
+              "Bearer pat_t66PDpqOvs2CGvJibklCpBDWAHOiQDGnexR48yI5kX8l434x7AcwsJE6ZYUcqaSI",
+            "Content-Type": "application/json",
+            Accept: "*/*",
+            Host: "api.coze.com",
+            Connection: "keep-alive",
           },
-          {
-            headers: {
-              Authorization:
-                "Bearer pat_t66PDpqOvs2CGvJibklCpBDWAHOiQDGnexR48yI5kX8l434x7AcwsJE6ZYUcqaSI",
-              "Content-Type": "application/json",
-              Accept: "*/*", // Updated Accept header
-              Host: "api.coze.com",
-              Connection: "keep-alive",
-            },
-          }
-        );
-        console.log("Response data:", response.data); // Added logging
-        setDataMsg(response.data.messages);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+        }
+      );
+      console.log("Response data:", response.data);
+      setUserAllMessage((prevMessages) => [
+        ...prevMessages,
+        response.data.messages[1].content,
+      ]);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const showLargeDrawer = () => {
     setSize("large");
@@ -192,9 +217,14 @@ function Chat() {
       showNotification();
     }
   }, [open]);
+
   const addMessage = () => {
     if (userOneMessage.trim()) {
-      setUserAllMessage([...userAllMessage, userOneMessage.trim()]);
+      setUserAllMessage((prevMessages) => [
+        ...prevMessages,
+        userOneMessage.trim(),
+      ]);
+      fetchData(userOneMessage.trim());
       setUserOneMessage("");
     }
   };
@@ -203,12 +233,12 @@ function Chat() {
     setUserOneMessage(e.target.value);
   };
 
-  const handleKeyPress = (e: any) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       addMessage();
-      setUserOneMessage("");
     }
   };
+
   console.log(userAllMessage);
 
   return (
@@ -239,7 +269,7 @@ function Chat() {
         <div className="flex flex-col gap-[25px]">
           <div
             className="flex flex-col items-end gap-[25px] scrool__chat"
-            style={{ height: "82vh", overflow: "scroll" }}
+            style={{ height: "82vh", overflowY: "scroll" }}
           >
             {userAllMessage.map((el: string, inx: number) => (
               <div className="chat__client__message" key={inx}>
@@ -249,7 +279,7 @@ function Chat() {
           </div>
           <div className="flex items-center">
             <input
-              onChange={(e) => setUserOneMessage(e.target.value)}
+              onChange={handleInputChange}
               type="text"
               value={userOneMessage}
               onKeyPress={handleKeyPress}
