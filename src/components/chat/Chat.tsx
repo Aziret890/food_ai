@@ -4,12 +4,17 @@
 // import { Button, Drawer, Space, notification } from "antd";
 // import type { DrawerProps } from "antd";
 // import svg from "../../images/svg/chat_bot.svg";
+// interface messageType {
+//   text: object;
+//   type: string;
+// }
 // function Chat() {
 //   const [open, setOpen] = useState(false);
 //   const [size, setSize] = useState<DrawerProps["size"]>();
-//   const [userAllMessage, setUserAllMessage] = useState<string[]>([]);
+//   const [userAllMessage, setUserAllMessage] = useState<object[]>([]);
 //   const [userOneMessage, setUserOneMessage] = useState<string>("");
-//   const fetchData = async () => {
+
+//   const fetchData = async (message: string) => {
 //     try {
 //       const response = await axios.post(
 //         "https://api.coze.com/open_api/v2/chat",
@@ -17,7 +22,7 @@
 //           conversation_id: "123",
 //           bot_id: "7372605356138758150",
 //           user: "29032201862555",
-//           query: `${userOneMessage}`,
+//           query: message,
 //           stream: false,
 //         },
 //         {
@@ -32,11 +37,20 @@
 //         }
 //       );
 //       console.log("Response data:", response.data);
-//       setUserAllMessage([...userAllMessage, response.data.messages[1].content]);
+//       setUserAllMessage((prevMessages) => [
+//         ...prevMessages,
+//         {
+//           text: response.data.messages,
+//           type: "bot",
+//         },
+//       ]);
 //     } catch (error) {
 //       console.error("Error fetching data:", error);
 //     }
 //   };
+
+//   console.log(userAllMessage, "kjasdfjsdfj");
+
 //   const showLargeDrawer = () => {
 //     setSize("large");
 //     setOpen(true);
@@ -48,7 +62,7 @@
 
 //   const showNotification = () => {
 //     notification.info({
-//       message: `Азирет менеджер`,
+//       message: `Азамат менеджер`,
 //       description: "Меня зовут Азирет, чем я могу вам помочь?",
 //       duration: 2.5,
 //       placement: "bottomRight",
@@ -67,9 +81,17 @@
 //       showNotification();
 //     }
 //   }, [open]);
+
 //   const addMessage = () => {
 //     if (userOneMessage.trim()) {
-//       setUserAllMessage([...userAllMessage, userOneMessage.trim()]);
+//       setUserAllMessage((prevMessages) => [
+//         ...prevMessages,
+//         {
+//           text: userOneMessage.trim(),
+//           type: "user",
+//         },
+//       ]);
+//       fetchData(userOneMessage.trim());
 //       setUserOneMessage("");
 //     }
 //   };
@@ -78,13 +100,12 @@
 //     setUserOneMessage(e.target.value);
 //   };
 
-//   const handleKeyPress = (e: any) => {
+//   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
 //     if (e.key === "Enter") {
 //       addMessage();
-//       setUserOneMessage("");
-//       fetchData();
 //     }
 //   };
+
 //   console.log(userAllMessage);
 
 //   return (
@@ -115,17 +136,37 @@
 //         <div className="flex flex-col gap-[25px]">
 //           <div
 //             className="flex flex-col items-end gap-[25px] scrool__chat"
-//             style={{ height: "82vh", overflow: "scroll" }}
+//             style={{ height: "82vh", overflowY: "scroll" }}
 //           >
-//             {userAllMessage.map((el: string, inx: number) => (
-//               <div className="chat__client__message" key={inx}>
-//                 <h1 className="text-end">{el}</h1>
-//               </div>
-//             ))}
+//             {userAllMessage.map((el: any, inx: number) => {
+//               if (typeof el.text === "string" && el.text === "user") {
+//                 return (
+//                   <div key={inx} className="chat__client__message">
+//                     <h1 className="text-end">{el.text}</h1>
+//                   </div>
+//                 );
+//               } else if (Array.isArray(el.text)) {
+//                 return el.text.map((item: any, subInx: number) => {
+//                   if (item.type === "answer") {
+//                     return (
+//                       <div
+//                         key={`${inx}-${subInx}`}
+//                         className="chat__client__message"
+//                       >
+//                         {item.content}
+//                       </div>
+//                     );
+//                   }
+//                   return null;
+//                 });
+//               }
+//               return null;
+//             })}
 //           </div>
+
 //           <div className="flex items-center">
 //             <input
-//               onChange={(e) => setUserOneMessage(e.target.value)}
+//               onChange={handleInputChange}
 //               type="text"
 //               value={userOneMessage}
 //               onKeyPress={handleKeyPress}
@@ -141,18 +182,23 @@
 // }
 
 // export default Chat;
+
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-// import "antd/dist/antd.css";
 import "../../css/Chat.css";
 import { Button, Drawer, Space, notification } from "antd";
 import type { DrawerProps } from "antd";
 import svg from "../../images/svg/chat_bot.svg";
 
+interface MessageType {
+  text: string | { type: string; content: string }[];
+  type: string;
+}
+
 function Chat() {
   const [open, setOpen] = useState(false);
   const [size, setSize] = useState<DrawerProps["size"]>();
-  const [userAllMessage, setUserAllMessage] = useState<string[]>([]);
+  const [userAllMessage, setUserAllMessage] = useState<MessageType[]>([]);
   const [userOneMessage, setUserOneMessage] = useState<string>("");
 
   const fetchData = async (message: string) => {
@@ -180,7 +226,10 @@ function Chat() {
       console.log("Response data:", response.data);
       setUserAllMessage((prevMessages) => [
         ...prevMessages,
-        response.data.messages[1].content,
+        {
+          text: response.data.messages,
+          type: "bot",
+        },
       ]);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -198,7 +247,7 @@ function Chat() {
 
   const showNotification = () => {
     notification.info({
-      message: `Азирет менеджер`,
+      message: `Азамат менеджер`,
       description: "Меня зовут Азирет, чем я могу вам помочь?",
       duration: 2.5,
       placement: "bottomRight",
@@ -222,7 +271,10 @@ function Chat() {
     if (userOneMessage.trim()) {
       setUserAllMessage((prevMessages) => [
         ...prevMessages,
-        userOneMessage.trim(),
+        {
+          text: userOneMessage.trim(),
+          type: "user",
+        },
       ]);
       fetchData(userOneMessage.trim());
       setUserOneMessage("");
@@ -271,13 +323,48 @@ function Chat() {
             className="flex flex-col items-end gap-[25px] scrool__chat"
             style={{ height: "82vh", overflowY: "scroll" }}
           >
-            {userAllMessage.map((el: string, inx: number) => (
-              <div className="chat__client__message" key={inx}>
-                <h1 className="text-end">{el}</h1>
-              </div>
-            ))}
+            {userAllMessage.map((el, inx) => {
+              if (el.type === "user" && typeof el.text === "string") {
+                return (
+                  <div key={inx} className="chat__client__message">
+                    <p>User :</p>
+                    <h1 className="text-end">{el.text}</h1>
+                  </div>
+                );
+              } else if (el.type === "bot" && Array.isArray(el.text)) {
+                return el.text.map((item: any, subInx: number) => {
+                  if (item.type === "answer") {
+                    return (
+                      <div
+                        key={`${inx}-${subInx}`}
+                        className="chat__bot__message"
+                      >
+                        <p>Bot:</p>
+                        {item.content}
+                      </div>
+                    );
+                  }
+                  if (item.type === "follow_up") {
+                    return (
+                      <div
+                        key={`${inx}-${subInx}-follow`}
+                        className="chat__bot__follow_up"
+                        onClick={() => {
+                          setUserOneMessage(item.content);
+                        }}
+                      >
+                        {item.content}
+                      </div>
+                    );
+                  }
+                  return null;
+                });
+              }
+              return null;
+            })}
           </div>
-          <div className="flex items-center">
+
+          <div className="chatBtns">
             <input
               onChange={handleInputChange}
               type="text"
@@ -286,7 +373,13 @@ function Chat() {
               className="input__chat"
               placeholder="text"
             />
-            <button onClick={addMessage}>отправить</button>
+            <button
+              style={{ background: "blue" }}
+              className="sendBtn"
+              onClick={addMessage}
+            >
+              отправить
+            </button>
           </div>
         </div>
       </Drawer>
